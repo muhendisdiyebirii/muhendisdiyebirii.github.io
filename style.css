@@ -1,3 +1,4 @@
+@media (max-width: 480px) {
     nav {
         flex-direction: column; /* Mobil menü için dikey hizalama */
         height: auto;
