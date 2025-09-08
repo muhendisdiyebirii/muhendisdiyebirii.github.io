@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Just For You 💘</title>
+  <style>
+    :root{
+      --bg1:#0f2027; --bg2:#203a43; --bg3:#2c5364;
+      --primary:#ff6b9a; --accent:#ffd166; --text:#eaf6ff; --muted:#9cc9ff;
+      --card:#0d1b24cc; --glass:rgba(255,255,255,0.06); --shadow:0 10px 40px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial; color:var(--text);
+      background: radial-gradient(1200px 800px at 80% -10%, #3f6c88, transparent 60%),
+                  radial-gradient(900px 600px at -10% 110%, #284b63, transparent 60%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+      overflow-x:hidden;
+    }
+    /* Floating hearts */
+    .heart{ position:fixed; pointer-events:none; opacity:.65; animation: floatUp linear forwards; }
+    @keyframes floatUp{ to{ transform: translateY(-120vh) rotate(360deg); opacity:0 } }
+
+    /* Layout */
+    .container{ min-height:100%; display:grid; place-items:center; padding:28px; }
+
+    .card{
+      width:min(880px, 96vw); background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      backdrop-filter: blur(12px); border:1px solid rgba(255,255,255,.12);
+      border-radius:28px; padding:28px; box-shadow: var(--shadow);
+    }
+    .header{ display:flex; align-items:center; gap:16px; margin-bottom:14px }
+    .avatar{ width:56px; height:56px; border-radius:50%; background:var(--glass); display:grid; place-items:center; font-size:28px; border:1px solid rgba(255,255,255,.2) }
+    h1{ margin:0; font-size:clamp(26px, 4vw, 38px); letter-spacing:.3px }
+    .sub{ color:var(--muted); margin:.25rem 0 0 0; font-size:clamp(14px, 1.8vw, 16px) }
+
+    .hero{
+      position:relative; overflow:hidden; border-radius:24px; padding:22px; margin:10px 0 20px;
+      background:linear-gradient(160deg, rgba(255,107,154,.16), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.16);
+    }
+    .type{ font-size:clamp(18px,2.4vw,22px); line-height:1.6 }
+    .question{ font-size:clamp(26px,4vw,34px); font-weight:800; margin:8px 0 6px; }
+    .glow{ text-shadow:0 0 18px rgba(255,107,154,.65) }
+
+    .btns{ display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; position:relative }
+    .btn{
+      border:none; padding:12px 18px; font-weight:700; border-radius:999px; cursor:pointer;
+      transition: transform .15s ease, box-shadow .2s ease; will-change:transform; position:relative;
+    }
+    .btn-primary{
+      background: radial-gradient(120% 120% at 30% 30%, #ff8db3, #ff6b9a 50%, #ff3b7f 100%);
+      color:white; box-shadow:0 10px 24px rgba(255,107,154,.35);
+    }
+    .btn-primary:hover{ transform: translateY(-2px) scale(1.02) }
+    .btn-ghost{ background:rgba(255,255,255,.12); color:var(--text); border:1px solid rgba(255,255,255,.2) }
+
+    .grid{ display:grid; grid-template-columns:1.2fr .8fr; gap:18px }
+    @media (max-width:820px){ .grid{ grid-template-columns:1fr } }
+
+    .panel{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:16px }
+    .panel h3{ margin:2px 0 8px; font-size:clamp(18px,2.2vw,20px) }
+
+    .list{ max-height:320px; overflow:auto; padding-right:6px }
+    .quote{ padding:10px 12px; margin:8px 0; background:rgba(0,0,0,.18); border:1px dashed rgba(255,255,255,.16); border-radius:14px }
+
+    .footer{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:14px; font-size:14px; color:var(--muted) }
+
+    .badge{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:14px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14) }
+
+    .yay{ font-size:clamp(22px,5vw,30px); text-align:center; margin:0 }
+    .hidden{ display:none }
+
+    .confetti{ position:fixed; inset:0; pointer-events:none }
+  </style>
+</head>
+<body>
+  <canvas class="confetti" id="confetti"></canvas>
+  <div class="container">
+    <div class="card" id="card">
+      <div class="header">
+        <div class="avatar">💖</div>
+        <div>
+          <h1>Senin için küçük bir sürpriz ✨</h1>
+          <p class="sub">Bu sayfayı kapatmadan önce bir şans ver…</p>
+        </div>
+      </div>
+
+      <div class="hero">
+        <div class="type" id="type"></div>
+        <div class="question glow">Ben… seninle bir kahve içmek isterim. Belki de <em>biz</em> olmak isterim. 💌</div>
+        <div class="btns">
+          <button class="btn btn-primary" id="yesBtn">Evet, görüşelim 💘</button>
+          <button class="btn btn-ghost" id="maybeBtn">Düşüneyim 🤔</button>
+          <button class="btn btn-ghost" id="noBtn">Peki 🙈</button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="panel">
+          <h3>Kalbimden geçenler (hepsi sana) 💫</h3>
+          <div class="list" id="quoteList"></div>
+        </section>
+        <aside class="panel">
+          <h3>Mini Profil Kartı</h3>
+          <p><strong>Adın:</strong> <span id="herName">(Adını yaz)</span></p>
+          <p><strong>Benden mesaj:</strong> 
+            <span id="msg">Gülüşünü görünce dünyam aydınlanıyor. Birlikte yeni anılar biriktirelim mi? 🌙</span>
+          </p>
+          <div class="btns">
+            <button class="btn btn-ghost" id="editBtn">Metni/Dizeleri Düzenle ✍️</button>
+            <button class="btn btn-ghost" id="shareBtn">Paylaşılabilir Bağlantı 📎</button>
+          </div>
+        </aside>
+      </div>
+
+      <div class="footer">
+        <span class="badge"></span>
+        <span>© 2025 – Kalbin sesiyle yazıldı</span>
+      </div>
+
+      <div id="yayBox" class="panel hidden" style="margin-top:14px">
+        <p class="yay">🎉 Cevabın kalbimi dans ettirdi! En kısa zamanda seni görmek için sabırsızlanıyorum. 🎉</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== Config – burayı dilediğin gibi düzenle ======
+    const YOUR_NAME = "(Senin adın)"; // kendi adını yaz
+
+    // 60+ etkileyici söz (tamamı özgün kısa cümleler)
+    const QUOTES = [
+      "Gözlerin, geceyi sabaha çeviren bir çift yıldız.",
+      "Gülüşün, kalbimde sonsuz tekrara alınmış bir şarkı.",
+      "Yanında zaman saat olmaktan vazgeçiyor.",
+      "Sessizliğin bile beni sakinleştiriyor.",
+      "Bir bakışınla tüm karmaşam düzene giriyor.",
+      "Adını duymak, içimde çiçekler açtırıyor.",
+      "Ellerin tutulmak için yaratılmış gibi.",
+      "Sen gelince çoğalıyor içimdeki cesaret.",
+      "Bir fotoğrafın, bin güzel anıya bedel.",
+      "Sende kaybolmak, kendimi bulmak demek.",
+      "Özlemek bile güzel, çünkü seni özlüyorum.",
+      "Kalbim adını fısıldamayı hiç bırakmıyor.",
+      "Yanında sıradan anlar bile parıldıyor.",
+      "Sesin, fırtınayı dindiren bir melodi.",
+      "Varlığın: En sevdiğim alışkanlık.",
+      "Dünyamı iki harfle güzelleştiriyorsun: Sen.",
+      "Bir tebessümünle bütün gün düzeliyor.",
+      "Hayalimdeki yarın, seninle başlıyor.",
+      "Kelimeler yetmediğinde, kalbim sen diye atıyor.",
+      "İyi ki tesadüfler seni bana getirmiş.",
+      "Uyandığım her sabah, ilk dileğim sensin.",
+      "Gel, aynı hikâyenin kahramanı olalım.",
+      "Elini tutmak, dünyaya yeniden güvenmek.",
+      "Aklımda sen, kalbimde sen; başka türlüsü gelmiyor.",
+      "Senin yanında ben, kendimin en güzel hâliyim.",
+      "Bir bak, kalbim sana ne çok yakışıyor.",
+      "Uzaklık dediğin, adını söyleyince kısalıyor.",
+      "Göz göze gelince bütün cümleler susuyor.",
+      "Yolum hep sana doğru kıvrılıyor.",
+      "Bazen tek ihtiyaç: Seninle bir çay.",
+      "Yağmur yağsın, yeter ki yanımda sen ol.",
+      "Sana anlatacak masallarım var, kahramanı sensin.",
+      "Kalbim, adına çalan bir piyano gibi.",
+      "Bir gülüşün, bin minnet.",
+      "Hayat kısa; seninle her an sonsuz.",
+      "Yanımda ol; dünya daha mümkün.",
+      "Sana baktıkça geleceği seviyorum.",
+      "Birlikte susmak bile şifalı.",
+      "Düşündükçe bile güzelleşiyor içim.",
+      "Yıldız kaydı; dileğim zaten sendin.",
+      "Sen varsın diye tesadüflere teşekkür ediyorum.",
+      "Kahveni nasıl sevdiğin gibi seni de özenle seveyim.",
+      "Sana açılan kapım, her zaman açık.",
+      "Gündüz güneşim, gece ayım sensin.",
+      "Omzun, fırtınalara karşı sığınağım.",
+      "Senden önce eksiktim, şimdi tamam gibiyim.",
+      "Bir sözünle bütün yorgunluklar dinleniyor.",
+      "Adın, kalbimde en sevdiğim şiirin nakaratı.",
+      "Sana bakınca, içimden teşekkür ediyorum hayata.",
+      "Gülüşünün izdüşümü yüzümde yaşıyor.",
+      "Yan yana iki nefes kadar yakınız.",
+      "Sözlerin çiçek, bakışın bahar.",
+      "Kalp atışımın ritmini sen belirliyorsun.",
+      "Sende güzelleşiyor bütün renkler.",
+      "Kulağıma en çok yakışan kelime: ismin.",
+      "Bir fotoğrafın bile içimi ısıtıyor.",
+      "Senden bahsetmek, günümün en sevdiğim kısmı.",
+      "Senle birlikte sıradan bir gün, bayrama dönüşüyor.",
+      "Düşlerimdeki el, hep senin eli.",
+      "Kalbim sen diye çarparken nasıl susayım.",
+      "Gözlerimde yerin, gökyüzünden geniş.",
+      "Yanımda olursan, her şey mümkün.",
+      "Sana sığındığımda dünya sessizleşiyor.",
+      "Adını yazdım; rüzgâr okşadı, kalbim kabardı.",
+      "Birlikte bakınca ufka, yollar kısalıyor.",
+      "İsmine denk geldikçe içimde kelebekler uçuşuyor.",
+      "Bir gülüşün kadar güzel bir mucize yok.",
+      "Sen anlat, ben dinleyeyim; dünyayı unutalım.",
+      "En sevdiğim plan: Senle aynı gün.",
+      "Bugün daha güzel, çünkü sen varsın.",
+      "Kalbimin haritası, adının etrafında çizili.",
+      "Sen gelince cümleler anlam kazanıyor.",
+      "Aynı şarkıda buluşalım, nakaratı biz olalım.",
+      "En sevdiğim manzara: Senin yüzün.",
+      "Yanıma yakışan en güzel şey: Senin elin.",
+      "Sende tamamlanıyor bütün iyi ihtimaller.",
+      "Gözlerin bana ‘evet’ diyor; dudakların ne bekler?",
+      "Bir bakışın, bin cesaret.",
+      "Sana alıştım; vazgeçmek gibi bir niyetim yok.",
+      "Adım atalım mı? Ben hazırım, seninle her şeye.",
+      "İçimdeki tüm iyi dilekler, senin adınla başlıyor.",
+      "Şanslıyım; çünkü seni tanıyorum.",
+      "Kalbimi açtım; içeride adın yazıyor.",
+      "Birlikte gülmek üzere, ‘evet’ de.",
+      "Şimdi ‘evet’ dersen, gökyüzü biraz daha pembeleşecek.",
+      "Sana yazılan bu sayfa, en güzel ‘başlangıç’ olsun.",
+      "Ben hazırdım; eksik olan sadece ‘biz’di.",
+      "Haydi, güzel bir hikâyenin ilk cümlesini birlikte yazalım."
+    ];
+
+    // ====== Typewriter ======
+    const typeEl = document.getElementById('type');
+    let qi = 0, ci = 0, deleting = false;
+    function typeLoop(){
+      const text = QUOTES[qi % QUOTES.length];
+      typeEl.textContent = deleting ? text.slice(0, ci--) : text.slice(0, ci++);
+      if(!deleting && ci > text.length + 6){ deleting = true }
+      if(deleting && ci < 0){ deleting = false; qi++; }
+      const speed = deleting ? 28 : 40;
+      setTimeout(typeLoop, speed);
+    }
+    typeLoop();
+
+    // ====== Populate list ======
+    const list = document.getElementById('quoteList');
+    QUOTES.forEach((q, idx)=>{
+      const div = document.createElement('div');
+      div.className = 'quote';
+      div.textContent = (idx+1)+'. '+q;
+      list.appendChild(div);
+    });
+
+    // ====== Buttons behavior ======
+    const yesBtn = document.getElementById('yesBtn');
+    const maybeBtn = document.getElementById('maybeBtn');
+    const noBtn = document.getElementById('noBtn');
+    const yayBox = document.getElementById('yayBox');
+
+    yesBtn.addEventListener('click', ()=>{
+      yayBox.classList.remove('hidden');
+      burst();
+      growButton(yesBtn);
+    });
+
+    function growButton(btn){
+      btn.style.transform = 'scale(1.08)';
+      setTimeout(()=> btn.style.transform = '', 400);
+    }
+
+    // No & maybe: kaçma davranışı (hover + tık)
+    ;[maybeBtn,noBtn].forEach((b)=>{
+      let moved = 0;
+      const flee = (mult=1)=>{
+        moved++;
+        const dx = (Math.random()*200-100) * (moved<6?1:1.8) * mult;
+        const dy = (Math.random()*160-80) * (moved<6?1:1.8) * mult;
+        b.style.transform = `translate(${dx}px, ${dy}px)`;
+      };
+      b.addEventListener('mouseenter', ()=>flee(1));
+      b.addEventListener('click', (e)=>{
+        e.preventDefault();
+        b.textContent = 'Peki… ama yine de kahve? ☕';
+        flee(2.2); // tıklayınca daha hızlı kaçılsın
+      });
+      b.addEventListener('mouseleave', ()=>{ /* konum korunsun */ });
+    });
+
+    // ====== Edit and share ======
+    const editBtn = document.getElementById('editBtn');
+    const shareBtn = document.getElementById('shareBtn');
+    const herNameSpan = document.getElementById('herName');
+    const msgSpan = document.getElementById('msg');
+
+    function params(){ const u = new URL(location.href); return u.searchParams }
+    function loadFromURL(){
+      const p = params();
+      const n = p.get('ad'); if(n){ herNameSpan.textContent = n }
+      const m = p.get('mesaj'); if(m){ msgSpan.textContent = m }
+    }
+    loadFromURL();
+
+    editBtn.addEventListener('click', ()=>{
+      const name = prompt('Onun adı (ör. Ayşe):', herNameSpan.textContent.replace('(Adını yaz)','').trim());
+      if(name) herNameSpan.textContent = name;
+      const message = prompt('Kısa bir notun:', msgSpan.textContent);
+      if(message) msgSpan.textContent = message;
+    });
+
+    shareBtn.addEventListener('click', async ()=>{
+      const u = new URL(location.href);
+      u.searchParams.set('ad', herNameSpan.textContent);
+      u.searchParams.set('mesaj', msgSpan.textContent);
+      try{
+        await navigator.clipboard.writeText(u.toString());
+        shareBtn.textContent = 'Bağlantı kopyalandı ✔️';
+        setTimeout(()=> shareBtn.textContent = 'Paylaşılabilir Bağlantı 📎', 1600);
+      }catch{ alert('Kopyalama başarısız oldu, elle kopyalayabilirsin:\n'+u.toString()) }
+    });
+
+    // ====== Floating hearts ======
+    const heartEmojis = ['💖','💘','💗','💞','💕','💝','💓'];
+    setInterval(()=>{
+      const span = document.createElement('span');
+      span.className = 'heart';
+      span.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+      const size = Math.random()*28+14;
+      span.style.fontSize = size+'px';
+      span.style.left = Math.random()*100+'vw';
+      span.style.bottom = '-40px';
+      span.style.animationDuration = (Math.random()*6+7)+'s';
+      document.body.appendChild(span);
+      setTimeout(()=> span.remove(), 12000);
+    }, 420);
+
+    // ====== Confetti ======
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let W, H; function resize(){ W = canvas.width = innerWidth; H = canvas.height = innerHeight } resize();
+    addEventListener('resize', resize);
+    const confs = [];
+    function confetti(){
+      for(let i=0;i<120;i++) confs.push({x:Math.random()*W, y:-20-Math.random()*H, r:2+Math.random()*5, v:2+Math.random()*3, a:Math.random()*Math.PI});
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      confs.forEach(c=>{
+        c.y += c.v; c.x += Math.sin(c.a+=0.02)*1.6;
+        ctx.beginPath(); ctx.arc(c.x,c.y,c.r,0,Math.PI*2); ctx.fillStyle = `hsl(${(c.x+c.y)%360},100%,60%)`; ctx.fill();
+      });
+      for(let i=confs.length-1;i>=0;i--) if(confs[i].y>H+10) confs.splice(i,1);
+      requestAnimationFrame(draw);
+    }
+    function burst(){ confetti(); }
+    draw();
+  </script>
+</body>
+</html>

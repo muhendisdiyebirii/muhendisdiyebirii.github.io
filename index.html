@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mehmet Karadaş | Yazılım🤖</title>
+
+    <link rel="icon" type="image/png" href="images/robotech.png">
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Fütüristik ve Yazılımcı fontları -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">muhendisdiyebirii</a>
+            
+            <ul id="nav-links">
+                <li><a href="#" class="nav-link" data-target="anasayfa">Ana Sayfa</a></li>
+                <li><a href="#" class="nav-link" data-target="projeler">Projeler</a></li>
+                <li><a href="#" class="nav-link" data-target="kodlar">Kodlar</a></li>
+            </ul>
+
+            <div id="hamburger-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="anasayfa" class="sayfa aktif">
+             <div class="hero">
+                <h1>YAZILIMIN GELECEĞİNE HOŞ GELDİN</h1>
+                <p>
+                    Ben Mehmet Karadaş, hedefim bir yazılım mühendisi olmak; bu doğrultuda çok fazla ve güzel kodlar yazmaya ve devreler kurmaya çalışacağım bu internet sitemde basitçe kendi devrelerimi ve kodlarımı paylaştım.
+                    Eğer ki detaylı yapılışlarını istiyorsan 
+                    <a href="https://www.youtube.com/@Robotech4401" target="_blank" class="hero-link">Youtube</a>'dan izleyebilir, 
+                    <a href="https://www.instagram.com/muhendisdiyebirii/" target="_blank" class="hero-link">Instagram</a> hesabından bana ulaşabilir ve soru sorabilirsiniz🙂
+                </p>
+            </div>
+             <div class="iletisim">
+                <h3>BAĞLANTI KUR</h3>
+                <p><span>YouTube:</span> <a href="https://www.youtube.com/@Robotech4401" target="_blank">Robotech4401</a></p>
+                <p><span>Instagram:</span> <a href="https://www.instagram.com/muhendisdiyebirii/" target="_blank">muhendisdiyebirii</a></p>
+            </div>
+        </section>
+        <section id="projeler" class="sayfa">
+            <h1>PROJELER</h1>
+            <div id="projeler-listesi" class="grid-container"></div>
+        </section>
+        <section id="kodlar" class="sayfa">
+            <h1>KOD ARŞİVİ</h1>
+            <div id="kodlar-listesi"></div>
+        </section>
+    </main>
+    
+    <!-- Proje Detayları için Modal -->
+    <div id="proje-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-title"></h2>
+            <div id="modal-images"></div>
+            <h3>GEREKLİ MALZEMELER</h3>
+            <ul id="modal-materials"></ul>
+            <h3>KODLAR</h3>
+            <div id="modal-codes"></div>
+        </div>
+    </div>
+
+    <!-- Kod Demoları için Modal -->
+    <div id="demo-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="demo-modal-title"></h2>
+            <p class="demo-disclaimer">
+                <strong>Bilgilendirme:</strong> Bu demo, orijinal kodun mantığını ve çalışmasını tarayıcınızda deneyimleyebilmeniz için <strong>JavaScript ile yeniden oluşturulmuştur.</strong>
+            </p>
+            <div id="demo-modal-content"></div>
+        </div>
+    </div>
+
+    <!-- Atatürk GIF ve Gençliğe Hitabe -->
+    <div class="ataturk-gif-container">
+        <img src="https://www.bing.com/th/id/OGC.3ec001b7c203e58e5852c645ac54927a?o=7&pid=1.7&rm=3&rurl=https%3a%2f%2fi.pinimg.com%2foriginals%2fd0%2fee%2f84%2fd0ee84ee31d941c8f37511621919adc5.gif&ehk=6lZoGJvZ1TuX0SCQkmSiP1sAlqzYrkEPJYzRsNykYsI%3d" alt="Atatürk ve Türk Bayrağı" id="ataturkGif">
+        
+        <!-- HİTABE MODALI BAŞLANGICI (İÇERİK DOĞRUDAN EKLENDİ) -->
+        <div id="hitabeContainer">
+            <div class="hitabe-content">
+                <h2>Gençliğe Hitabe</h2>
+                <p class="zafer-bayrami">30 Ağustos Zafer Bayramı anısına, Gazi Mustafa Kemal Atatürk'ün Türk gençliğine emaneti:</p>
+                
+<div class="hitabe-metin">
+                    <p>Ey Türk Gençliği!</p>
+                    <p>Birinci vazifen, Türk istiklâlini, Türk Cumhuriyetini, ilelebet, muhafaza ve müdafaa etmektir.</p>
+                    <p>Mevcudiyetinin ve istikbalinin yegâne temeli budur. Bu temel, senin, en kıymetli hazinendir. İstikbalde dahi, seni bu hazineden mahrum etmek isteyecek, dahilî ve haricî bedhahların olacaktır.</p>
+                    <p>Bir gün, İstiklâl ve Cumhuriyeti müdafaa mecburiyetine düşersen, vazifeye atılmak için, içinde bulunacağın vaziyetin imkân ve şeraitini düşünmeyeceksin! Bu imkân ve şerait, çok nâmüsait bir mahiyette tezahür edebilir. İstiklâl ve Cumhuriyetine kastedecek düşmanlar, bütün dünyada emsali görülmemiş bir galibiyetin mümessili olabilirler. Cebren ve hile ile aziz vatanın, bütün kaleleri zaptedilmiş, bütün tersanelerine girilmiş, bütün orduları dağıtılmış ve memleketin her köşesi bilfiil işgal edilmiş olabilir.</p>
+                    <p>Bütün bu şerâitten daha elîm ve daha vahim olmak üzere, memleketin dahilinde, iktidara sahip olanlar gaflet ve dalâlet ve hattâ hıyanet içinde bulunabilirler. Hattâ bu iktidar sahipleri şahsî menfaatlerini, müstevlilerin siyasi emelleriyle tevhit edebilirler. Millet, fakr ü zaruret içinde harap ve bîtap düşmüş olabilir.</p>
+                    <p>Ey Türk istikbalinin evlâdı! İşte, bu ahval ve şerâit içinde dahi, vazifen; Türk İstiklâl ve Cumhuriyetini kurtarmaktır!</p>
+                    <p><strong>Muhtaç olduğun kudret, damarlarındaki asil kanda mevcuttur!</strong></p>
+                </div>
+            </div>
+        </div>
+        <!-- HİTABE MODALI SONU -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
