@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <title>mühendisdiyebirii - Mehmet Karadaş</title>
+    <style>
+        :root{--bg-light:#fafbfe;--bg-accent-light:#ffffff;--surface-light:#ffffff;--text-light:#0b1020;--muted-light:#5b6478;--border-light:#e6e9f2;--link-light:#6d28d9;--gold-light:#c89b3c;--shadow-light:0 10px 30px rgba(24,38,80,.08);--bg-dark:#0b1020;--bg-accent-dark:#1a1f2e;--surface-dark:#1a1f2e;--text-dark:#fafbfe;--muted-dark:#a0a4b8;--border-dark:#2a2f3e;--link-dark:#8b5cf6;--gold-dark:#f59e0b;--shadow-dark:0 10px 30px rgba(0,0,0,.3)}
+        [data-theme="dark"]{--bg:var(--bg-dark);--bg-accent:var(--bg-accent-dark);--surface:var(--surface-dark);--text:var(--text-dark);--muted:var(--muted-dark);--border:var(--border-dark);--link:var(--link-dark);--gold:var(--gold-dark);--shadow:var(--shadow-dark)}
+        [data-theme="light"]{--bg:var(--bg-light);--bg-accent:var(--bg-accent-light);--surface:var(--surface-light);--text:var(--text-light);--muted:var(--muted-light);--border:var(--border-light);--link:var(--link-light);--gold:var(--gold-light);--shadow:var(--shadow-light)}
+        *{box-sizing:border-box}html,body{margin:0;padding:0}
+        body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg) 0%,var(--bg-accent) 100%);color:var(--text);line-height:1.65;overflow:hidden;position:relative}
+        .container{width:min(1000px,92%);margin:0 auto}
+        nav{background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow);position:relative}
+        .nav-inner{display:flex;justify-content:center;gap:18px;align-items:center;padding:14px 0}
+        nav a{color:var(--text);text-decoration:none;padding:8px 10px;border-radius:8px;position:relative;transition:color .2s}
+        nav a::after{content:"";position:absolute;left:10px;right:10px;bottom:6px;height:2px;background:linear-gradient(90deg,var(--link),var(--gold));border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .25s}
+        nav a:hover{color:var(--link)}nav a:hover::after{transform:scaleX(1)}
+        .theme-toggle{position:absolute;top:14px;right:20px;background:var(--surface);border:1px solid var(--border);border-radius:50%;width:40px;height:40px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;font-size:18px}
+        .theme-toggle:hover{background:var(--bg-accent)}
+        header{text-align:center;padding:48px 0 28px}
+        header h1{margin:0 0 10px;font-size:clamp(1.6rem,3vw,2.2rem);background:linear-gradient(90deg,var(--text),var(--link));-webkit-background-clip:text;background-clip:text;color:transparent}
+        header p{margin:0 auto;max-width:720px;color:var(--muted)}
+        section{padding:24px 0;text-align:center}
+        .btn{display:inline-block;padding:12px 18px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s;box-shadow:var(--shadow);margin:8px}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(24,38,80,.12)}
+        .btn.primary{background:linear-gradient(135deg,var(--link),#c084fc);border-color:transparent;color:#fff}
+        footer{border-top:1px solid var(--border);color:var(--muted);font-size:.95rem;padding:20px 0;margin:24px 0 0;text-align:center;background:var(--surface)}
+        a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+        #bgCanvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;background:transparent}
+    </style>
+</head>
+<body>
+
+    <!-- Canvas arka plan animasyonu -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Üst Menü -->
+    <nav>
+        <div class="container nav-inner">
+            <a href="Kodlar.html">Kodlar</a>
+            <a href="projeler.html">Projeler</a>
+            <a href="Uygulamalar.html">Uygulamalar</a>
+            <a href="İletişim.html">İletişim</a>
+        </div>
+        <div class="theme-toggle" onclick="toggleTheme()">🌙</div>
+    </nav>
+
+    <!-- Başlık ve tanıtım -->
+    <header>
+        <h1>mühendisdiyebirii'ye Hoş Geldin</h1>
+        <p>Ben <strong>Mehmet Karadaş</strong>, 9. sınıfta kodlama ile uğraşan bir teknoloji meraklısıyım.  
+        Web Sitem, İnstagram ve Youtube, Arduino, Python, HTML ve daha birçok teknoloji alanında projelerimi paylaştığım özel alanım.</p>
+    </header>
+
+<script>
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    let particles = [];
+
+    class Particle {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.size = Math.random() * 4 + 2;
+            this.speedX = (Math.random() - 0.5) * 6;
+            this.speedY = (Math.random() - 0.5) * 6;
+            this.alpha = 1;
+            this.decay = 0.02 + Math.random() * 0.02;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.alpha -= this.decay;
+            if (this.alpha < 0) this.alpha = 0;
+        }
+        draw() {
+            ctx.fillStyle = `rgba(0, 150, 255, ${this.alpha})`; // mavimsi renk
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function createExplosion(x, y) {
+        const count = 40 + Math.floor(Math.random() * 20);
+        for(let i = 0; i < count; i++) {
+            particles.push(new Particle(x, y));
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = 'transparent';
+        ctx.fillRect(0, 0, width, height);
+
+        particles.forEach((p, i) => {
+            p.update();
+            p.draw();
+            if (p.alpha <= 0) {
+                particles.splice(i, 1);
+            }
+        });
+
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('click', (e) => {
+        createExplosion(e.clientX, e.clientY);
+    });
+
+    // Tema değiştirme fonksiyonu
+    function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        const toggle = document.querySelector('.theme-toggle');
+        toggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    // Sayfa yüklenirken tema ayarla
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    const toggle = document.querySelector('.theme-toggle');
+    toggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+</script>
+
+
+</body>
+</html>

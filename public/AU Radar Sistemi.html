@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<title>Arduino Radar Projesi</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #4cafef, #6a11cb);
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 15px;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        color: #ffeb3b;
+        margin-top: 30px;
+    }
+
+    pre {
+        background: rgba(0,0,0,0.6);
+        padding: 15px;
+        border-radius: 10px;
+        overflow-x: auto;
+        text-align: left;
+        color: #00ff9d;
+    }
+
+    img {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-top: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📡 Arduino Radar Projesi</h1>
+    <p>Arduino ve Processing kullanarak yapılmış servo + ultrasonik sensörlü radar sistemi.</p>
+
+    <h2>Arduino Kodu</h2>
+    <pre>
+#include &lt;Servo.h&gt;
+
+#define trigPin 9
+#define echoPin 10
+#define servoPin 6
+
+Servo radarServo;
+
+void setup() {
+  Serial.begin(9600);
+  radarServo.attach(servoPin);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+}
+
+void loop() {
+  for (int angle = 0; angle <= 180; angle += 2) {
+    radarServo.write(angle);
+    int distance = measureDistance();
+    Serial.print(angle);
+    Serial.print(",");
+    Serial.println(distance);
+    delay(50);
+  }
+  for (int angle = 180; angle >= 0; angle -= 2) {
+    radarServo.write(angle);
+    int distance = measureDistance();
+    Serial.print(angle);
+    Serial.print(",");
+    Serial.println(distance);
+    delay(50);
+  }
+}
+
+int measureDistance() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  long duration = pulseIn(echoPin, HIGH);
+  int distance = duration * 0.034 / 2;
+  return distance;
+}
+    </pre>
+
+    <h2>Processing Kodu</h2>
+    <pre>
+import processing.serial.*;
+
+Serial myPort;
+String data;
+float angle, distance;
+
+void setup() {
+  size(600, 600);
+  myPort = new Serial(this, Serial.list()[0], 9600);
+  myPort.bufferUntil('\n');
+}
+
+void draw() {
+  background(0);
+  translate(width / 2, height);
+  stroke(0, 255, 0);
+  noFill();
+  arc(0, 0, 400, 400, PI, TWO_PI);
+  arc(0, 0, 300, 300, PI, TWO_PI);
+  arc(0, 0, 200, 200, PI, TWO_PI);
+  arc(0, 0, 100, 100, PI, TWO_PI);
+  stroke(255, 0, 0);
+  float rad = radians(angle);
+  float x = cos(rad) * distance * 2;
+  float y = -sin(rad) * distance * 2;
+  line(0, 0, x, y);
+  ellipse(x, y, 10, 10);
+}
+
+void serialEvent(Serial myPort) {
+  data = myPort.readStringUntil('\n');
+  if (data != null) {
+    String[] values = split(trim(data), ",");
+    if (values.length == 2) {
+      angle = float(values[0]);
+      distance = float(values[1]);
+    }
+  }
+}
+    </pre>
+
+    <h2>📷 Proje Şeması</h2>
+    <img src="ardunioradar.png" alt="Arduino Radar Projesi Şeması">
+</div>
+
+</body>
+</html>

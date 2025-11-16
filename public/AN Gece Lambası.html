@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <title>LDR ile LED Kontrol Projesi</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #00ffcc;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #ffcc00;
+        }
+
+        pre {
+            background: rgba(0,0,0,0.6);
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+            text-align: left;
+            color: #00ff9d;
+            font-size: 14px;
+        }
+
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .images img {
+            width: 45%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>💡 LDR ile LED Kontrol Projesi</h1>
+    <p>Ortam ışığına göre LED'in otomatik yanıp sönmesini sağlayan basit bir Arduino projesi.</p>
+
+    <h2>Arduino Kodu</h2>
+    <pre>
+const int ldrPin = A0;
+const int ledPin = 3;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  int ldrValue = analogRead(ldrPin);
+  
+  if (ldrValue &lt; 400) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  delay(100);
+}
+    </pre>
+
+    <h2>📷 Proje Görselleri</h2>
+    <div class="images">
+        <img src="an.png" alt="LDR LED Devre Şeması">
+    </div>
+</div>
+
+</body>
+</html>

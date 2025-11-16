@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<title>CheckBox Tema Değiştirici Kodu</title>
+<style>
+  body {
+    font-family: Consolas, monospace;
+    background-color: #f2f4f8;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  .editor {
+    background-color: #1e1e1e;
+    color: #dcdcdc;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  }
+
+  textarea {
+    width: 100%;
+    height: 500px;
+    background-color: #1e1e1e;
+    color: #dcdcdc;
+    border: none;
+    resize: none;
+    font-size: 15px;
+    line-height: 1.5;
+    outline: none;
+  }
+</style>
+</head>
+<body>
+
+  <h1>💡 CheckBox Tema Değiştirici Kodu</h1>
+
+  <div class="editor">
+    <textarea readonly>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    transition: background 0.5s, color 0.5s;
+    background: #f0f0f0;
+    color: #333;
+    text-align: center;
+    padding-top: 50px;
+  }
+  body.dark {
+    background: #222;
+    color: white;
+  }
+  label {
+    cursor: pointer;
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #4cafef;
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+  }
+  input[type="checkbox"]:hover {
+    transform: scale(1.4);
+  }
+</style>
+</head>
+<body>
+  <label>
+    <input type="checkbox" id="themeCheckbox">
+    Karanlık Mod
+  </label>
+
+<script>
+  const checkbox = document.getElementById("themeCheckbox");
+  checkbox.addEventListener("change", () => {
+    document.body.classList.toggle("dark", checkbox.checked);
+  });
+</script>
+</body>
+</html>
+    </textarea>
+  </div>
+
+</body>
+</html>

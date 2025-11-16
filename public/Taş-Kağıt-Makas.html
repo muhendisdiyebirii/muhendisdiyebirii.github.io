@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <title>Taş-Kağıt-Makas Oyunu</title>
+    <style>
+        body {
+            font-family: Consolas, monospace;
+            background-color: #f2f4f8;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .editor {
+            background-color: #1e1e1e;
+            color: #dcdcdc;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        textarea {
+            width: 100%;
+            height: 450px;
+            background-color: #1e1e1e;
+            color: #dcdcdc;
+            border: none;
+            resize: none;
+            font-size: 16px;
+            line-height: 1.5;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>✊ Taş - 📄 Kağıt - ✂️ Makas Oyunu (Python)</h1>
+
+    <div class="editor">
+        <textarea readonly>
+import random
+
+def secim():
+    secenekler = ["Taş", "Kağıt", "Makas"]
+    bilgisayar_secimi = random.choice(secenekler)
+    oyuncu_secimi = input("Hadi bakalım! Taş mı, Kağıt mı, yoksa Makas mı? Seçimini yap: ").capitalize()
+
+    if oyuncu_secimi not in secenekler:
+        print("Öyle bir seçenek yok! Lütfen sadece 'Taş', 'Kağıt' veya 'Makas' yaz.")
+        return
+
+    print(f"Bilgisayarın tercihi: {bilgisayar_secimi}")
+    print(f"Senin tercihin: {oyuncu_secimi}")
+
+    if bilgisayar_secimi == oyuncu_secimi:
+        print("Berabere! Bu seferlik kimse kazanmadı.")
+    elif (bilgisayar_secimi == "Taş" and oyuncu_secimi == "Makas") or \
+         (bilgisayar_secimi == "Kağıt" and oyuncu_secimi == "Taş") or \
+         (bilgisayar_secimi == "Makas" and oyuncu_secimi == "Kağıt"):
+        print("Kaybettin! Daha iyisini yapabilirsin.")
+    else:
+        print("Tebrikler! Kazandın. Helal olsun!")
+
+while True:
+    secim()
+    devam = input("Devam etmek istiyor musun? (E/h): ").lower()
+    if devam != "e":
+        print("Oyun bitti! Yine bekleriz.")
+        break
+        </textarea>
+    </div>
+
+</body>
+</html>

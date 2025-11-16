@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kodlar - mühendisdiyebirii</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root{--bg:#fafbfe;--bg-accent:#ffffff;--surface:#ffffff;--text:#0b1020;--muted:#5b6478;--border:#e6e9f2;--link:#6d28d9;--gold:#c89b3c;--shadow:0 10px 30px rgba(24,38,80,.08)}
+        *{box-sizing:border-box}html,body{margin:0;padding:0}
+        body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg) 0%,var(--bg-accent) 100%);color:var(--text);line-height:1.65}
+        .container{width:min(1000px,92%);margin:0 auto}
+        nav{background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+        .nav-inner{display:flex;justify-content:center;gap:18px;align-items:center;padding:14px 0}
+        nav a{color:var(--text);text-decoration:none;padding:8px 10px;border-radius:8px;position:relative;transition:color .2s}
+        nav a::after{content:"";position:absolute;left:10px;right:10px;bottom:6px;height:2px;background:linear-gradient(90deg,var(--link),var(--gold));border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .25s}
+        nav a:hover{color:var(--link)}nav a:hover::after{transform:scaleX(1)}
+        header{text-align:center;padding:48px 0 28px}
+        header h1{margin:0 0 10px;font-size:clamp(1.6rem,3vw,2.2rem);background:linear-gradient(90deg,var(--text),var(--link));-webkit-background-clip:text;background-clip:text;color:transparent}
+        header p{margin:0 auto;max-width:720px;color:var(--muted)}
+        section{padding:24px 0;text-align:center}
+        .btn{display:inline-block;padding:12px 18px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s;box-shadow:var(--shadow);margin:8px}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(24,38,80,.12)}
+        .btn.primary{background:linear-gradient(135deg,var(--link),#c084fc);border-color:transparent;color:#fff}
+        footer{border-top:1px solid var(--border);color:var(--muted);font-size:.95rem;padding:20px 0;margin:24px 0 0;text-align:center;background:var(--surface)}
+        a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-inner">
+            <a href="index.html">Anasayfa</a>
+            <a href="Kodlar.html">Kodlar</a>
+            <a href="projeler.html">Projeler</a>
+            <a href="Uygulamalar.html">Uygulamalar</a>
+            <a href="htmlkodları.html">HTML Notları</a>
+            <a href="İletişim.html">İletişim</a>
+        </div>
+    </nav>
+    <header>
+        <div class="container">
+            <h1>Kod Arşivi</h1>
+            <p>HTML ve Python için hazırladığım notları ve örnek kodları düzenli bir arşivde topluyorum.</p>
+        </div>
+    </header>
+    <main class="container">
+        <section>
+            <a class="btn primary" href="htmlkodları.html">HTML Kodları</a>
+            <a class="btn primary" href="pythonkodları.html">Python Kodları</a>
+            <div style="margin-top: 20px;">
+                <model-viewer src="Python_Logo_1113100203_texture.glb" alt="Python Logo 3D Model" auto-rotate camera-controls style="width: 200px; height: 200px;"></model-viewer>
+            </div>
+        </section>
+    </main>
+    <footer>&copy; 2025 Mehmet Karadaş. Tüm hakları saklıdır.</footer>
+
+</body>
+</html>
