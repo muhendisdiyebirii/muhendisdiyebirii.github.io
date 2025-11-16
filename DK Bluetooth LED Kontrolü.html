@@ -1,57 +1,40 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <title>Bluetooth LED Kontrol</title>
     <style>
-        body {
-            margin: 0;
-            font-family: "Segoe UI", sans-serif;
-            background: linear-gradient(135deg, #232526, #414345);
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 20px;
-            border-radius: 15px;
-            backdrop-filter: blur(6px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-
-        h1 {
-            color: #00ffcc;
-        }
-
-        h2 {
-            margin-top: 30px;
-            color: #ffcc00;
-        }
-
-        pre {
-            background: rgba(0,0,0,0.6);
-            padding: 15px;
-            border-radius: 10px;
-            overflow-x: auto;
-            text-align: left;
-            color: #00ff9d;
-            font-size: 14px;
-        }
-
-        img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-top: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-        }
+        :root{--bg-light:#fafbfe;--bg-accent-light:#ffffff;--surface-light:#ffffff;--text-light:#0b1020;--muted-light:#5b6478;--border-light:#e6e9f2;--link-light:#6d28d9;--gold-light:#c89b3c;--shadow-light:0 10px 30px rgba(24,38,80,.08);--bg-dark:#0b1020;--bg-accent-dark:#1a1f2e;--surface-dark:#1a1f2e;--text-dark:#fafbfe;--muted-dark:#a0a4b8;--border-dark:#2a2f3e;--link-dark:#8b5cf6;--gold-dark:#f59e0b;--shadow-dark:0 10px 30px rgba(0,0,0,.3)}
+        [data-theme="dark"]{--bg:var(--bg-dark);--bg-accent:var(--bg-accent-dark);--surface:var(--surface-dark);--text:var(--text-dark);--muted:var(--muted-dark);--border:var(--border-dark);--link:var(--link-dark);--gold:var(--gold-dark);--shadow:var(--shadow-dark)}
+        [data-theme="light"]{--bg:var(--bg-light);--bg-accent:var(--bg-accent-light);--surface:var(--surface-light);--text:var(--text-light);--muted:var(--muted-light);--border:var(--border-light);--link:var(--link-light);--gold:var(--gold-light);--shadow:var(--shadow-light)}
+        *{box-sizing:border-box}html,body{margin:0;padding:0}
+        body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg) 0%,var(--bg-accent) 100%);color:var(--text);line-height:1.65;text-align:center;padding:20px}
+        .container{width:min(1000px,92%);margin:0 auto;max-width:900px;background:var(--surface);padding:20px;border-radius:15px;box-shadow:var(--shadow)}
+        h1{color:var(--link);margin:0 0 10px}
+        h2{margin:30px 0 14px;color:var(--gold)}
+        pre{background:var(--bg-accent);padding:15px;border-radius:10px;overflow-x:auto;text-align:left;color:var(--text);font-size:14px;border:1px solid var(--border)}
+        img{max-width:100%;border-radius:10px;margin-top:15px;box-shadow:var(--shadow)}
+        nav{background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+        .nav-inner{display:flex;justify-content:center;gap:18px;align-items:center;padding:14px 0}
+        nav a{color:var(--text);text-decoration:none;padding:8px 10px;border-radius:8px;position:relative;transition:color .2s}
+        nav a::after{content:"";position:absolute;left:10px;right:10px;bottom:6px;height:2px;background:linear-gradient(90deg,var(--link),var(--gold));border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .25s}
+        nav a:hover{color:var(--link)}nav a:hover::after{transform:scaleX(1)}
+        footer{border-top:1px solid var(--border);color:var(--muted);font-size:.95rem;padding:20px 0;margin:24px 0 0;text-align:center;background:var(--surface)}
+        a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
     </style>
 </head>
 <body>
 
+    <nav>
+        <div class="container nav-inner">
+            <a href="index.html">Anasayfa</a>
+            <a href="Kodlar.html">Kodlar</a>
+            <a href="projeler.html">Projeler</a>
+            <a href="Uygulamalar.html">Uygulamalar</a>
+            <a href="htmlkodları.html">HTML Notları</a>
+            <a href="İletişim.html">İletişim</a>
+        </div>
+    </nav>
 <div class="container">
     <h1>📡 Bluetooth LED Kontrol Projesi</h1>
     <p>MIT App Inventor ile Bluetooth üzerinden LED kontrolü yapan Deneyap Kart projesi.</p>
@@ -89,6 +72,6 @@ void loop() {
     <h2>🤖 Devre Şeması </h2>
     <img src="sc3.png" alt="Devre Şeması">
 </div>
-
+    <footer>&copy; 2025 Mehmet Karadaş. Tüm hakları saklıdır.</footer>
 </body>
 </html>
