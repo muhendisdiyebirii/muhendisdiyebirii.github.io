@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="light">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Sayı Tahmin Oyunu</title>
+    <title>Sınırsız Mesaj Atma</title>
     <style>
         body {
             font-family: Consolas, monospace;
@@ -30,7 +30,7 @@
 
         textarea {
             width: 100%;
-            height: 300px;
+            height: 250px;
             background-color: #1e1e1e;
             color: #dcdcdc;
             border: none;
@@ -43,25 +43,19 @@
 </head>
 <body>
 
-    <h1>🔢 Python - Sayı Tahmin Oyunu</h1>
+    <h1>💬 Python - Sınırsız Mesaj Atma</h1>
 
     <div class="editor">
         <textarea readonly>
-import random
+import pyautogui
+import time
 
-def tahmin():
-    sayi = random.randint(1, 100)
-    while True:
-        a = int(input("Bir sayı seçiniz:"))
-        if sayi == a:
-            print("Tahmininiz doğru!")
-            break
-        if sayi >= a:
-            print("Daha Büyük bir sayı giriniz:")
-        if sayi <= a:
-            print("Daha Küçük bir sayı giriniz:")
+def mesaj():
+    pyautogui.write("Kanka")
+    pyautogui.press('enter')
 
-tahmin()
+while True:
+    mesaj()
         </textarea>
     </div>
 

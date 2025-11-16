@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="light">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>İletişim - mühendisdiyebirii</title>
+    <title>Uygulamalar - mühendisdiyebirii</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         :root{--bg:#fafbfe;--bg-accent:#ffffff;--surface:#ffffff;--text:#0b1020;--muted:#5b6478;--border:#e6e9f2;--link:#6d28d9;--gold:#c89b3c;--shadow:0 10px 30px rgba(24,38,80,.08)}
@@ -17,11 +17,13 @@
         header{text-align:center;padding:48px 0 28px}
         header h1{margin:0 0 10px;font-size:clamp(1.6rem,3vw,2.2rem);background:linear-gradient(90deg,var(--text),var(--link));-webkit-background-clip:text;background-clip:text;color:transparent}
         header p{margin:0 auto;max-width:720px;color:var(--muted)}
-        .panel{max-width:680px;margin:0 auto 24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;box-shadow:var(--shadow);text-align:center}
-        .btn{display:inline-block;padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:linear-gradient(135deg,var(--link),#c084fc);color:#fff;text-decoration:none;box-shadow:var(--shadow)}
-        .btn:hover{transform:translateY(-2px)}
+        section{padding:24px 0}
+        .btn{display:inline-block;padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s;box-shadow:var(--shadow)}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(24,38,80,.12)}
+        .btn.primary{background:linear-gradient(135deg,var(--link),#c084fc);border-color:transparent;color:#fff}
         footer{border-top:1px solid var(--border);color:var(--muted);font-size:.95rem;padding:20px 0;margin:24px 0 0;text-align:center;background:var(--surface)}
         a:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+        .stack{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
     </style>
 </head>
 <body>
@@ -37,15 +39,15 @@
     </nav>
     <header>
         <div class="container">
-            <h1>İletişim</h1>
-            <p>Projelerim, iş birlikleri veya sadece merak ettiklerin için bana mail atabilirsin.</p>
+            <h1>Uygulamalar</h1>
+            <p>Farklı projeler için geliştirdiğim küçük araç ve script’ler.</p>
         </div>
     </header>
     <main class="container">
-        <div class="panel">
-            <p>Doğrudan ulaşmak için:</p>
-            <p><a class="btn" href="mailto:robotech4010@gmail.com">robotech4010@gmail.com</a></p>
-        </div>
+        <section class="stack">
+            <a class="btn primary" href="https://drive.google.com/file/d/12rptIew2MnxPugQ4yAr-0a5ow-t8NGXa/view?usp=sharing" target="_blank" rel="noopener">WebScraper Uygulaması</a>
+            <a class="btn primary" href="https://drive.google.com/file/d/1ZWAr23vbr7FB5O2mJqvSt8mTHa0HhZyk/view?usp=sharing" target="_blank" rel="noopener">Takipçi Botu Uygulaması</a>
+        </section>
     </main>
     <footer>&copy; 2025 Mehmet Karadaş. Tüm hakları saklıdır.</footer>
 </body>

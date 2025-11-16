@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Robotech - Mehmet Karadaş</title>
+    <style>
+        html, body {
+            margin: 0; padding: 0; height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            position: relative;
+        }
+
+        /* Üst menü */
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.1em;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: 0.3s ease;
+            user-select: none;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Ana başlık */
+        header {
+            text-align: center;
+            padding: 60px 20px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+        }
+
+        header p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: auto;
+            color: #dcdcdc;
+        }
+
+        /* Canvas tam ekran, üstte patlamalar için */
+        #bgCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas arka plan animasyonu -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Üst Menü -->
+    <nav>
+        <a href="Kodlar.html">Kodlar</a>
+        <a href="projeler.html">Projeler</a>
+        <a href="Uygulamalar.html">Uygulamalar</a>
+        <a href="İletişim.html">İletişim</a>
+    </nav>
+
+    <!-- Başlık ve tanıtım -->
+    <header>
+        <h1>Robotech'e Hoş Geldin</h1>
+        <p>Ben <strong>Mehmet Karadaş</strong>, 9. sınıfta kodlama ile uğraşan bir teknoloji meraklısıyım.  
+        Web Sitem, İnstagram ve Youtube, Arduino, Python, HTML ve daha birçok teknoloji alanında projelerimi paylaştığım özel alanım.</p>
+    </header>
+
+<script>
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    let particles = [];
+
+    class Particle {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.size = Math.random() * 4 + 2;
+            this.speedX = (Math.random() - 0.5) * 6;
+            this.speedY = (Math.random() - 0.5) * 6;
+            this.alpha = 1;
+            this.decay = 0.02 + Math.random() * 0.02;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.alpha -= this.decay;
+            if (this.alpha < 0) this.alpha = 0;
+        }
+        draw() {
+            ctx.fillStyle = `rgba(0, 150, 255, ${this.alpha})`; // mavimsi renk
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function createExplosion(x, y) {
+        const count = 40 + Math.floor(Math.random() * 20);
+        for(let i = 0; i < count; i++) {
+            particles.push(new Particle(x, y));
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = 'transparent';
+        ctx.fillRect(0, 0, width, height);
+
+        particles.forEach((p, i) => {
+            p.update();
+            p.draw();
+            if (p.alpha <= 0) {
+                particles.splice(i, 1);
+            }
+        });
+
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('click', (e) => {
+        createExplosion(e.clientX, e.clientY);
+    });
+</script>
+
+</body>
+</html>

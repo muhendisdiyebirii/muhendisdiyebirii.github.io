@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bluetooth LED Kontrol</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #232526, #414345);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #00ffcc;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #ffcc00;
+        }
+
+        pre {
+            background: rgba(0,0,0,0.6);
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+            text-align: left;
+            color: #00ff9d;
+            font-size: 14px;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📡 Bluetooth LED Kontrol Projesi</h1>
+    <p>MIT App Inventor ile Bluetooth üzerinden LED kontrolü yapan Deneyap Kart projesi.</p>
+
+    <h2>Arduino/Deneyap Kodu</h2>
+    <pre>
+#include &lt;BluetoothSerial.h&gt;
+
+BluetoothSerial SerialBT;
+
+void setup() {
+  pinMode(D1, OUTPUT);
+  SerialBT.begin("DeneyapKart");
+}
+
+void loop() {
+  if (SerialBT.available()) {
+    char veri = SerialBT.read();
+    if (veri == '1') {
+      digitalWrite(D1, HIGH);
+    }
+    else if (veri == '0') {
+      digitalWrite(D1, LOW);
+    }
+  }
+}
+    </pre>
+
+    <h2>📷 App İnventor İlk Bölüm</h2>
+    <img src="sc1.png" alt="Bluetooth LED Devre App inventor İlk Bölümü">
+
+    <h2>📱 MIT App Inventor Kodlar </h2>
+    <img src="sc2.png" alt="MIT App Inventor 2 Tasarım Ekranı">
+
+    <h2>🤖 Devre Şeması </h2>
+    <img src="sc3.png" alt="Devre Şeması">
+</div>
+
+</body>
+</html>
